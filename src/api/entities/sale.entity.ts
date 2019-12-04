@@ -11,7 +11,7 @@ export class Sale{
     id: number;
 
     @Column({name: "data_pedido"})
-    dataPedido: number = new Date().getDate();
+    dataPedido: Date = new Date();
 
     @ManyToOne(type => Client, client => client.sales)
     @JoinColumn({name: "client_id"})
