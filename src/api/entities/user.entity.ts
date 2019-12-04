@@ -2,8 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import { Product } from './product.entity';
 import { Sale } from './sale.entity';
 import { Client } from './client.entity';
+import { Payment } from './payment.entity';
 
-@Entity()
+@Entity({name: "users"})
 export class User{
     
     @PrimaryGeneratedColumn()
@@ -29,4 +30,7 @@ export class User{
 
     @OneToMany(type => Client, client => client.user)
     clients: Client[];
-}@Entity()
+
+    @OneToMany(type => Payment, payment => payment.user)
+    payments: Payment[];
+}
