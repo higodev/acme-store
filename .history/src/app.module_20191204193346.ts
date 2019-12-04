@@ -18,7 +18,7 @@ import "reflect-metadata";
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true
     })],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ClientController],
+  providers: [AppService, ClientService, Client.ServiceService],
 })
 export class AppModule {}

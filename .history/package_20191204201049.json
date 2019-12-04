@@ -1,8 +1,8 @@
 {
   "name": "acme-store",
   "version": "0.0.1",
-  "description": "Project Softcom LAB",
-  "author": "by Higo Alexandre",
+  "description": "",
+  "author": "",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

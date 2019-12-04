@@ -1,5 +1,3 @@
-import { ApiExtraModels } from "@nestjs/swagger";
-
 export class ClientDto{
 
     id: number;
