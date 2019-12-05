@@ -77,8 +77,8 @@ export class ClientService {
         if(client == null){
             return await HttpStatus.BAD_REQUEST
         }
-        
-        this.repository.delete({id: idClient});
+
+        this.repository.delete(idClient);
     }
 
 }

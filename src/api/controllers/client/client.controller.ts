@@ -26,7 +26,7 @@ export class ClientController {
 
     @Put('user/:idUser/client/:idClient')
     async update(@Param('idUser') idUser, @Param('idClient') idClient){
-      return await this.service.delete(id);
+      return await this.service.delete(idUser, idClient);
     }
 
     @Delete('user/:idUser/client/:idClient')
