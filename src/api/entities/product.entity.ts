@@ -7,9 +7,12 @@ export class Product{
 
     @PrimaryGeneratedColumn()
     id: number;
-
+    
     @Column({length:100})
-    nome:string;
+    nome: string;
+
+    @Column()
+    descricao: string;
 
     @Column({default:0, name: "preco_compra"})
     precoCompra: number;

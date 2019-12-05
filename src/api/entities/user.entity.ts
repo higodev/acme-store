@@ -13,10 +13,10 @@ export class User{
     @Column({length: 100})
     nome: string;
 
-    @Column({length: 14})
+    @Column({length: 14, unique: true})
     cnpj: string;
 
-    @Column({length: 100})
+    @Column({length: 100, unique: true})
     email: string;
 
     @Column({length: 16})

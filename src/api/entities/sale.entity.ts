@@ -10,8 +10,8 @@ export class Sale{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({name: "data_pedido"})
-    dataPedido: Date = new Date();
+    @Column({ name: 'data_pedido', type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
+    dataPedido: Date;
 
     @ManyToOne(type => Client, client => client.sales)
     @JoinColumn({name: "client_id"})
