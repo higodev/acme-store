@@ -25,11 +25,4 @@ export class Client{
     @JoinColumn({name: "user_id"})
     user: User;
 
-    constructor(clientCreate: ClientCreate, user){
-        this.nome = clientCreate.nome;
-        this.email = clientCreate.email;
-        this.cpfCnpj = clientCreate.cpfCnpj;
-        this.user = user
-    }
-
 }

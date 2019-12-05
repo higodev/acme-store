@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { Client } from 'src/api/entities/client.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,22 +11,36 @@ export class ClientService {
     constructor(
         @InjectRepository(Client) private readonly repository: Repository<Client>
     ) {}
-        
-    fromCreateToObj(clientCreate: ClientCreate, user): Client{
-        return new Client(clientCreate, user);
+
+    fromCreateToObj(creat: ClientCreate, user){
+        let client = new Client();
+        client.nome = creat.nome;
+        client.email = creat.email;
+        client.cpfCnpj = creat.cpfCnpj;
+        client.user = user;
+        return client;
     }
 
     fromListToListDto(clients: Client[]): ClientDto[]{
         return clients.map(client => new ClientDto(client));
     }
 
-    async findAll(): Promise<ClientDto[]>{
-        return this.fromListToListDto(await this.repository.find());
+    async fromDtoToObj(dto: ClientDto): Promise<Client>{
+        let client = await this.repository.findOne(dto.id);
+        client.id = dto.id;
+        client.nome = dto.nome;
+        return client;
     }
 
+    async isClientValid(idUser, idClient): Promise<Client>{
+        let client = await this.repository.findOne(idClient);
+        if(client == null){return;}
+        if(client.user != idUser){return;}
+        return client;
+    }
 
-    async findById(id): Promise<ClientDto>{
-        return new ClientDto(await this.repository.findOne({ id }));
+    async findById(idUser, idClient): Promise<ClientDto>{
+        return new ClientDto(await this.repository.findOne(idClient));
     }
 
     async findByUser(idUser): Promise<ClientDto[]>{
@@ -38,19 +52,33 @@ export class ClientService {
         return this.fromListToListDto(clients);
     }
 
-    async save(clientCreate: ClientCreate, idUser){
-        return this.repository.create(new Client(clientCreate, idUser));
+    async save(idUser, client: ClientCreate){
+        return await this.repository.save(this.fromCreateToObj(client, idUser));
     }
 
-    async update(dto: ClientDto, id){
-        let obj = await this.repository.findOne({id});
-        if (obj != null){
-            return this.repository.save(this.fromCreateToObj(dto, obj.user));
+    async update(idUser, idClient, clientDto: ClientDto){
+
+        let client = await this.isClientValid(idUser, idClient);
+
+        if(client == null){
+            return await HttpStatus.BAD_REQUEST
         }
+
+        client.nome = clientDto.nome
+        client.cpfCnpj = clientDto.cpfCnpj
+
+        return await this.repository.save(client);
     }
 
-    async delete(id){
-        this.repository.delete({id});
+    async delete(idUser, idClient){
+
+        let client = await this.isClientValid(idUser, idClient);
+
+        if(client == null){
+            return await HttpStatus.BAD_REQUEST
+        }
+        
+        this.repository.delete({id: idClient});
     }
 
 }

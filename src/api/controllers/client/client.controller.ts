@@ -1,46 +1,37 @@
 import { Controller, Param, Get, HttpStatus, Post, Body, Delete, Put } from '@nestjs/common';
 import { ClientService } from 'src/api/services/client/client.service';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { ClientCreate } from 'src/api/dtos/client.create';
 
-@ApiTags('Clients')
-@Controller('/api/v1/')
+@ApiTags('clients')
+@Controller('/api/v1/user')
 export class ClientController {
 
     constructor(private readonly service: ClientService){}
 
-    @Get()
-    async findAll(){
-        return await this.service.findAll();
+    @Get('user/:idUser/client/:idClient')
+    async findById(@Param('idUser') idUser, @Param('idClient') idClient){
+        return await this.service.findById(idUser, idClient);
     }
 
-    @Get(':id')
-    async findById(@Param('id') id){
-      try {
-        return await this.service.findById(id);
-      } catch (error) {
-        return HttpStatus.BAD_REQUEST;
-      }
-    }
-
-    @Get('users/idUser')
+    @Get('user/:idUser/client')
     async findByUser(@Param('idUser') idUser){
       return await this.service.findByUser(idUser);
     }
 
-    @Post(':idUser')
-    async save(@Body() body: ClientCreate, @Param('idUser') idUser){
-      return await this.service.save(body, idUser);
+    @Post('user/:idUser/client')
+    async save(@Param('idUser') idUser, @Body() client: ClientCreate){
+      return await this.service.save(idUser, client);
     }
 
-    @Put(':id')
-    async update(){
-      
-    }
-
-    @Delete(':id')
-    async delete(@Param('id') id){
+    @Put('user/:idUser/client/:idClient')
+    async update(@Param('idUser') idUser, @Param('idClient') idClient){
       return await this.service.delete(id);
+    }
+
+    @Delete('user/:idUser/client/:idClient')
+    async delete(@Param('idUser') idUser, @Param('idClient') idClient){
+      return await this.service.delete(idUser, idClient);
     }
 
 }
