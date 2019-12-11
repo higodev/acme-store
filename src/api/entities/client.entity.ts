@@ -1,7 +1,6 @@
 import { PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, Entity, JoinColumn } from "typeorm";
 import { Sale } from "./sale.entity";
 import { User } from "./user.entity";
-import { ClientCreate } from "../dtos/client/client.create";
 import { ClientDto } from "../dtos/client/client.dto";
 
 @Entity({name: "clients"})

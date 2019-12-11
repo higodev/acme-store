@@ -4,13 +4,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor{
-
-    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        return next
-          .handle()
-          .pipe(
-            catchError(err => throwError(new BadRequestException())),
-          );
-      }
-
+  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+    throw new Error("Bad Request.");
+  }
 }

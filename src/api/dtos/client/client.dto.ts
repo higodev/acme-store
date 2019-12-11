@@ -1,5 +1,6 @@
 import { Client } from "../../entities/client.entity";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { User } from "src/api/entities/user.entity";
 
 export class ClientDto{
 
@@ -20,6 +21,20 @@ export class ClientDto{
         this.nome = client.nome;
         this.cpfCnpj = client.cpfCnpj;
         this.email =client.email;
+    }
+
+    convertObj(user: User): Client{
+        let obj = new Client();
+        obj.id = this.id;
+        obj.nome = this.nome;
+        obj.cpfCnpj = this.cpfCnpj;
+        obj.email = this.email;
+        obj.user = user;
+        return obj;
+    }
+
+    convertListDto(clients: Client[]): ClientDto[]{
+        return clients.map(client => new ClientDto(client))
     }
 
 }

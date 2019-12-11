@@ -6,7 +6,7 @@ import { UserDto } from 'src/api/dtos/user/user.dto';
 
 @Injectable()
 export class UserService {
-    user
+
     constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
 
     async findById(id: number): Promise<User>{
@@ -18,7 +18,7 @@ export class UserService {
     }
 
     async save(userDto: UserDto): Promise<User>{
-        return await this.repository.create(userDto);
+        return await this.repository.create(userDto.convertObj());
     }
 
     async update(userDto: UserDto, id: number): Promise<User>{
