@@ -15,8 +15,8 @@ export class ClientController {
     }
 
     @Get(':clientId')
-    async findById(@Param('id') user, @Param('idClient') idClient){
-        this.service.findById(user, idClient);
+    async findById(@Param('id') user, @Param('idClient') clientId){
+        this.service.findById(user, clientId);
     }
 
     @Post('')

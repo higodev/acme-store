@@ -9,10 +9,10 @@ export class ClientService {
 
     constructor(@InjectRepository(Client) private readonly repository: Repository<Client>){}
 
-    async findById(user, clientId: number): Promise<Client>{
+    async findById(user, clientId: number): Promise<ClientDto>{
         let client = await this.repository.findOne(clientId);
         if(client.user == user){
-            return client;
+            return new ClientDto(client);
         }
     }
 
@@ -24,7 +24,7 @@ export class ClientService {
     }
 
     async save(user, clientDto: ClientDto): Promise<Client>{
-        return await this.repository.create(clientDto.convertObj(user));
+        return this.repository.create(clientDto.convertObj(user));
     }
 
     async update(user, clientDto: ClientDto, clientId: number): Promise<Client>{
