@@ -1,5 +1,4 @@
 {
-    "cSpell.words": [
-        "Cnpj"
-    ]
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
 }

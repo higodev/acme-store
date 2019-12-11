@@ -33,4 +33,5 @@ export class User{
 
     @OneToMany(type => Payment, payment => payment.user)
     payments: Payment[];
+
 }

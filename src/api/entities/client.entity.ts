@@ -1,7 +1,8 @@
 import { PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, Entity, JoinColumn } from "typeorm";
 import { Sale } from "./sale.entity";
 import { User } from "./user.entity";
-import { ClientCreate } from "../dtos/client.create";
+import { ClientCreate } from "../dtos/client/client.create";
+import { ClientDto } from "../dtos/client/client.dto";
 
 @Entity({name: "clients"})
 export class Client{
@@ -24,5 +25,9 @@ export class Client{
     @ManyToOne(type => User, user => user.clients)
     @JoinColumn({name: "user_id"})
     user: User;
+    
+    convertListDto(clients: Client[]): ClientDto[]{
+        return clients.map(client => new ClientDto(client));
+    }
 
 }
