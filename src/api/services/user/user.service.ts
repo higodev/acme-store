@@ -9,12 +9,14 @@ export class UserService {
 
     constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
 
-    async findById(id: number): Promise<User>{
-        return await this.repository.findOne(id);
+    async findById(id: number): Promise<UserDto>{
+        let user = await this.repository.findOne(id);
+        return new UserDto(user);
     }
 
-    async findAll(): Promise<User[]>{
-        return await this.repository.find();
+    async findAll(): Promise<UserDto[]>{
+        let users = await this.repository.find();
+        return users.map(user => new UserDto(user));
     }
 
     async save(userDto: UserDto): Promise<User>{
@@ -22,7 +24,8 @@ export class UserService {
     }
 
     async update(userDto: UserDto, id: number): Promise<User>{
-        if(this.repository.findOne(id) != null){
+        let user = await this.repository.findOne(id);
+        if(user.id == userDto.id){
             return await this.repository.save(userDto.convertObj());
         }
     }

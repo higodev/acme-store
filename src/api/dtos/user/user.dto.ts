@@ -41,9 +41,5 @@ export class UserDto{
         obj.senha = this.senha;
         return obj;
     }
-
-    convertListDto(users: User[]): UserDto[]{
-        return users.map(user => new UserDto(user));
-    }
     
 }

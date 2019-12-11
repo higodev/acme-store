@@ -32,9 +32,4 @@ export class ClientDto{
         obj.user = user;
         return obj;
     }
-
-    convertListDto(clients: Client[]): ClientDto[]{
-        return clients.map(client => new ClientDto(client))
-    }
-
 }

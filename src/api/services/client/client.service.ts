@@ -16,10 +16,11 @@ export class ClientService {
         }
     }
 
-    async findAll(user): Promise<Client[]>{
-        return await this.repository.find({
+    async findAll(user): Promise<ClientDto[]>{
+        let clients = await this.repository.find({
             where: [{user: user}]
         });
+        return clients.map(client => new ClientDto(client));
     }
 
     async save(user, clientDto: ClientDto): Promise<Client>{
