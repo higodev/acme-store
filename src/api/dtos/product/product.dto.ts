@@ -1,7 +1,9 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { 
+    ApiProperty, 
+    ApiPropertyOptional 
+} from "@nestjs/swagger";
 import { Product } from "src/api/entities/product.entity";
 import { User } from "src/api/entities/user.entity";
-import { BehaviorSubject } from "rxjs";
 
 export class ProductDto {
 

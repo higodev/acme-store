@@ -1,4 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { 
+    ApiProperty, 
+    ApiPropertyOptional 
+} from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
 import { User } from "src/api/entities/user.entity";
 

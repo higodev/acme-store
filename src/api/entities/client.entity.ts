@@ -1,4 +1,11 @@
-import { PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, Entity, JoinColumn } from "typeorm";
+import { 
+    PrimaryGeneratedColumn, 
+    Column, 
+    OneToMany, 
+    ManyToOne, 
+    Entity, 
+    JoinColumn 
+} from "typeorm";
 import { Sale } from "./sale.entity";
 import { User } from "./user.entity";
 import { ClientDto } from "../dtos/client/client.dto";

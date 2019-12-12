@@ -1,5 +1,12 @@
-import { Controller, Get, Param, Post, Body, Put, Delete,
-     HttpStatus, HttpException } from '@nestjs/common';
+import { 
+    Controller, 
+    Get, 
+    Param, 
+    Post, 
+    Body, 
+    Put, 
+    Delete
+} from '@nestjs/common';
 import { UserService } from 'src/api/services/user/user.service';
 import { UserDto } from 'src/api/dtos/user/user.dto';
 import { ApiTags } from '@nestjs/swagger';

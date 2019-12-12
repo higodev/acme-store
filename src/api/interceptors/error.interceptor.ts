@@ -1,4 +1,11 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpService, HttpException, HttpStatus, BadRequestException } from "@nestjs/common";
+import { 
+  Injectable, 
+  NestInterceptor, 
+  ExecutionContext, 
+  CallHandler, 
+  HttpException, 
+  HttpStatus
+} from "@nestjs/common";
 import { Observable, throwError } from "rxjs";
 import { tap, catchError } from 'rxjs/operators';
 
@@ -9,9 +16,9 @@ export class ErrorInterceptor implements NestInterceptor{
       .handle()
       .pipe(
         catchError(err => throwError(new HttpException({
-          status: HttpStatus.FORBIDDEN,
-          error: context,
-        }, 403))),
+          status: HttpStatus.BAD_REQUEST,
+          error:  'Ops! Deu algo errado na sua requisição.',
+        }, 400))),
       );
   }
 

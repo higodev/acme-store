@@ -1,5 +1,8 @@
 import { Client } from "../../entities/client.entity";
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { 
+    ApiProperty, 
+    ApiPropertyOptional 
+} from "@nestjs/swagger";
 import { User } from "src/api/entities/user.entity";
 
 export class ClientDto{
