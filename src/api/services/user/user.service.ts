@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/api/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -8,6 +8,15 @@ import { UserDto } from 'src/api/dtos/user/user.dto';
 export class UserService {
 
     constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
+
+    fromDto(userDto: UserDto): User{
+        let obj = new User()
+        obj.nome = userDto.nome;
+        obj.cnpj = userDto.cnpj;
+        obj.email = userDto.email;
+        obj.senha = userDto.senha;
+        return obj;
+    }
 
     async findById(id: number): Promise<UserDto>{
         let user = await this.repository.findOne(id);
@@ -20,13 +29,15 @@ export class UserService {
     }
 
     async save(userDto: UserDto): Promise<User>{
-        return await this.repository.create(userDto.convertObj());
+        let user  = this.fromDto(userDto);
+        return this.repository.save(user);
     }
 
     async update(userDto: UserDto, id: number): Promise<User>{
         let user = await this.repository.findOne(id);
-        if(user.id == userDto.id){
-            return await this.repository.save(userDto.convertObj());
+        if(user.id = id){
+            let userUpdate = this.fromDto(userDto);
+            return await this.repository.save(userUpdate);
         }
     }
     

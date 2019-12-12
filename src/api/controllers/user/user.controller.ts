@@ -1,4 +1,5 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete,
+     HttpStatus, HttpException } from '@nestjs/common';
 import { UserService } from 'src/api/services/user/user.service';
 import { UserDto } from 'src/api/dtos/user/user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -11,27 +12,26 @@ export class UserController {
 
     @Get('')
     async findAll(){
-        this.service.findAll()
+        return this.service.findAll();
     }
 
     @Get(':id')
     async findById(@Param('id') id){
-        this.service.findById(id);
+        return this.service.findById(id);
     }
 
     @Post('')
     async save(@Body() userDto: UserDto){
-        this.service.save(userDto);
+        return this.service.save(userDto);
     }
 
     @Put(':id')
     async update(@Body() userDto: UserDto, @Param('id') id){
-        this.service.update(userDto, id);
+        return this.service.update(userDto, id);
     }
 
     @Delete(':id')
     async delete(@Param('id') id){
-        this.service.delete(id)
+        this.service.delete(id);
     }
-
 }
