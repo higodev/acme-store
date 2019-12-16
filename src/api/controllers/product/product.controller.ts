@@ -5,11 +5,12 @@ import {
     Post, 
     Body, 
     Put, 
-    Delete
+    Delete,
+    HttpStatus
 } from '@nestjs/common';
 import { ProductService } from 'src/api/services/product/product.service';
 import { ApiTags } from '@nestjs/swagger';
-import { ProductDto } from 'src/api/dtos/product/product.dto';
+import { Product } from 'src/api/entities/product.entity';
 
 @ApiTags('product')
 @Controller('api/v1/user/:id/product')
@@ -19,27 +20,47 @@ export class ProductController {
 
     @Get('')
     async findAll(@Param('id') user){
-        this.service.findAll(user);
+        try{
+            return this.service.findAll(user);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Get(':productId')
     async findById(@Param('id') user, @Param('productId') productId){
-        this.service.findById(user, productId);
+        try{
+            return this.service.findById(user, productId);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Post('')
-    async save(@Param('id') user, @Body() productDto: ProductDto){
-        this.service.save(user, productDto);
+    async save(@Param('id') user, @Body() product: Product){
+        try{
+            return this.service.save(user, product);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Put(':productId')
-    async update(@Param('id') user, @Param('productId') productId, @Body() productDto: ProductDto){
-        this.service.update(user, productDto, productId);
+    async update(@Param('id') user, @Param('productId') productId, @Body() product: Product){
+        try{
+            return this.service.update(user, product, productId);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
-    @Delete(':clientId')
+    @Delete(':productId')
     async delete(@Param('id') user, @Param('productId') productId){
-        this.service.delete(user, productId);
+        try{
+            this.service.delete(user, productId);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
 }

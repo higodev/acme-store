@@ -8,22 +8,28 @@ import { Product } from './product.entity';
 import { Sale } from './sale.entity';
 import { Client } from './client.entity';
 import { Payment } from './payment.entity';
+import { ApiPropertyOptional, ApiProperty } from '@nestjs/swagger';
 
 @Entity({name: "users"})
 export class User{
     
+    @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({length: 100})
+    @ApiProperty()
+    @Column({length: 100, nullable: false})
     nome: string;
 
+    @ApiProperty()
     @Column({length: 14, unique: true})
     cnpj: string;
 
+    @ApiProperty()
     @Column({length: 100, unique: true})
     email: string;
 
+    @ApiProperty()
     @Column({length: 16})
     senha: string;
     

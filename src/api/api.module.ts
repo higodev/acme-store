@@ -9,6 +9,7 @@ import { ClientService } from './services/client/client.service';
 import { Product } from './entities/product.entity';
 import { ProductController } from './controllers/product/product.controller';
 import { ProductService } from './services/product/product.service';
+import "reflect-metadata";
 
 @Module({
     imports: [TypeOrmModule.forFeature([

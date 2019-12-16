@@ -4,27 +4,34 @@ import {
     ManyToOne, 
     JoinColumn, 
     OneToMany, 
-    Entity 
+    Entity, 
+    Double
 } from "typeorm";
 import { User } from "./user.entity";
 import { SaleItem } from "./sale-item.entity";
+import { ApiPropertyOptional, ApiProperty } from "@nestjs/swagger";
 
 @Entity({name: "products"})
 export class Product{
 
+    @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column({length:100})
+    @ApiProperty()
+    @Column({length:100, nullable: false})
     nome: string;
 
-    @Column()
+    @ApiProperty()
+    @Column({nullable: false})
     descricao: string;
 
-    @Column({default:0, name: "preco_compra"})
+    @ApiPropertyOptional()
+    @Column("decimal", { precision: 5, scale: 2, default:0, name: "preco_compra"})
     precoCompra: number;
 
-    @Column({default:0, name: "preco_venda"})
+    @ApiPropertyOptional()
+    @Column("decimal", { precision: 5, scale: 2, default:0, name: "preco_venda"})
     precoVenda: number;
 
     @ManyToOne(type => User, user => user.products)
@@ -33,5 +40,4 @@ export class Product{
 
     @OneToMany(type => SaleItem, items => items.product)
     saleItems: SaleItem[];
-
 }

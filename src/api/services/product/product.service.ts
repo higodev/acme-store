@@ -1,35 +1,36 @@
-import { Injectable } from '@nestjs/common';
+    import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/api/entities/product.entity';
 import { Repository } from 'typeorm';
-import { ProductDto } from 'src/api/dtos/product/product.dto';
 
 @Injectable()
 export class ProductService {
     
     constructor(@InjectRepository(Product) private readonly repository: Repository<Product>){}
 
-    async findById(user, productId: number): Promise<ProductDto>{
+    async findById(user, productId: number): Promise<Product>{
         let product = await this.repository.findOne(productId);
         if(product.user == user){
-            return new ProductDto(product);
+            return product;
         }
     }
 
-    async findAll(user): Promise<ProductDto[]>{
+    async findAll(user): Promise<Product[]>{
         let products = await this.repository.find({
             where: [{user: user}]
         });
-        return products.map(product => new ProductDto(product));
+        return products;
     }
 
-    async save(user, productDto: ProductDto): Promise<Product>{
-        return this.repository.create(productDto.convertObj(user));
+    async save(user, product: Product): Promise<Product>{
+        product.user = user;
+        return this.repository.save(product);
     }
 
-    async update(user, productDto: ProductDto, productId: number): Promise<Product>{
-        if(this.repository.findOne(productId) != null){
-            return await this.repository.save(productDto.convertObj(user));
+    async update(user, product: Product, productId: number): Promise<Product>{
+        if(product.id == productId){
+            product.user = user;
+            return await this.repository.save(product);
         }
     }
     

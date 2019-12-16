@@ -8,20 +8,24 @@ import {
 } from "typeorm";
 import { Sale } from "./sale.entity";
 import { User } from "./user.entity";
-import { ClientDto } from "../dtos/client/client.dto";
+import { ApiPropertyOptional, ApiProperty } from "@nestjs/swagger";
 
 @Entity({name: "clients"})
 export class Client{
 
+    @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ApiProperty()
     @Column({length: 100, nullable: false})
     nome: string;
 
+    @ApiProperty()
     @Column({name: "cpf_cnpj", length: 14, unique: true})
     cpfCnpj: string;
     
+    @ApiPropertyOptional()
     @Column({name: "email", length: 100})
     email: string;
     
@@ -31,9 +35,4 @@ export class Client{
     @ManyToOne(type => User, user => user.clients)
     @JoinColumn({name: "user_id"})
     user: User;
-    
-    convertListDto(clients: Client[]): ClientDto[]{
-        return clients.map(client => new ClientDto(client));
-    }
-
 }

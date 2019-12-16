@@ -5,11 +5,12 @@ import {
     Post, 
     Body, 
     Put, 
-    Delete
+    Delete,
+    HttpStatus
 } from '@nestjs/common';
 import { UserService } from 'src/api/services/user/user.service';
-import { UserDto } from 'src/api/dtos/user/user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from 'src/api/entities/user.entity';
 
 @ApiTags('user')
 @Controller('api/v1/user')
@@ -19,26 +20,47 @@ export class UserController {
 
     @Get('')
     async findAll(){
-        return this.service.findAll();
+        try{
+            return this.service.findAll();
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Get(':id')
     async findById(@Param('id') id){
-        return this.service.findById(id);
+        try{
+            return this.service.findById(id);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Post('')
-    async save(@Body() userDto: UserDto){
-        return this.service.save(userDto);
+    async save(@Body() user: User){
+        try{
+            return this.service.save(user);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Put(':id')
-    async update(@Body() userDto: UserDto, @Param('id') id){
-        return this.service.update(userDto, id);
+    async update(@Body() user: User, @Param('id') id){
+        try{
+            return this.service.update(user, id);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Delete(':id')
     async delete(@Param('id') id){
-        this.service.delete(id);
+        try{
+            this.service.delete(id);
+        }catch(err){
+            return HttpStatus.BAD_REQUEST;
+        }
     }
+    
 }

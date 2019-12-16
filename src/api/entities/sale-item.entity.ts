@@ -3,7 +3,8 @@ import {
     Column, 
     Entity, 
     ManyToOne, 
-    JoinColumn 
+    JoinColumn, 
+    Double
 } from "typeorm";
 import { Product } from "./product.entity";
 import { Sale } from "./sale.entity";
@@ -14,10 +15,10 @@ export class SaleItem{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({default: 0})
+    @Column("decimal", { precision: 5, scale: 2, default: 0})
     quantidade: number;
 
-    @Column({default: 0})
+    @Column("decimal", { precision: 5, scale: 2, default: 0})
     preco: number;
 
     @ManyToOne(type => Sale, sale => sale.items)
