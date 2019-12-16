@@ -10,9 +10,10 @@ export class PaymentService {
 
     async findById(user, paymentId: number): Promise<Payment>{
         let payment = await this.repository.findOne(paymentId);
-        if(payment.user == user){
-            return payment;
-        }
+        return payment;
+        // if(payment.user == user){
+        //     return payment;
+        // }
     }
 
     async findAll(user): Promise<Payment[]>{

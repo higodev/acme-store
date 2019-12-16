@@ -38,11 +38,11 @@ export class UserController {
 
     @Post('')
     async save(@Body() user: User){
-        try{
+        // try{
             return this.service.save(user);
-        }catch(err){
-            return HttpStatus.BAD_REQUEST;
-        }
+        // }catch(err){
+        //     return HttpStatus.BAD_REQUEST;
+        // }
     }
 
     @Put(':id')

@@ -9,10 +9,11 @@ export class ClientService {
     constructor(@InjectRepository(Client) private readonly repository: Repository<Client>){}
 
     async findById(user:number, clientId: number): Promise<Client>{
-        let client = await this.repository.findOne(clientId);
-        if(user === client.user.id){
-            return client;
-        }
+        return await this.repository.findOne(clientId);
+        // let client = await this.repository.findOne(clientId);
+        // if(user === client.user.id){
+        //     return client;
+        // }
     }
 
     async findAll(user): Promise<Client[]>{

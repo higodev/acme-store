@@ -1,4 +1,4 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/api/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -6,8 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
+    private saltRounds = 10;
 
+    constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
+    
     async findById(id: number): Promise<User>{
         return await this.repository.findOne(id);
     }

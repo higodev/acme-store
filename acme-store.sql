@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2019 at 06:16 AM
+-- Generation Time: Dec 16, 2019 at 07:23 AM
 -- Server version: 5.7.28-0ubuntu0.18.04.4
 -- PHP Version: 7.0.33-12+ubuntu18.04.1+deb.sury.org+1
 
@@ -57,8 +57,8 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `descricao` varchar(255) NOT NULL,
-  `preco_compra` int(11) NOT NULL DEFAULT '0',
-  `preco_venda` int(11) NOT NULL DEFAULT '0',
+  `preco_compra` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `preco_venda` decimal(5,2) NOT NULL DEFAULT '0.00',
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -83,8 +83,8 @@ CREATE TABLE `sales` (
 
 CREATE TABLE `sales_items` (
   `id` int(11) NOT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT '0',
-  `preco` int(11) NOT NULL DEFAULT '0',
+  `quantidade` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `preco` decimal(5,2) NOT NULL DEFAULT '0.00',
   `sale_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

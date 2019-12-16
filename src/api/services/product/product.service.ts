@@ -9,10 +9,11 @@ export class ProductService {
     constructor(@InjectRepository(Product) private readonly repository: Repository<Product>){}
 
     async findById(user, productId: number): Promise<Product>{
-        let product = await this.repository.findOne(productId);
-        if(product.user == user){
-            return product;
-        }
+        return await this.repository.findOne(productId);
+        // let product = await this.repository.findOne(productId);
+        // if(product.user == user){
+        //     return product;
+        // }
     }
 
     async findAll(user): Promise<Product[]>{

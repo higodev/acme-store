@@ -9,7 +9,7 @@ import { ClientService } from './services/client/client.service';
 import { Product } from './entities/product.entity';
 import { ProductController } from './controllers/product/product.controller';
 import { ProductService } from './services/product/product.service';
-import "reflect-metadata";
+import { AuthService } from './auth/auth.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
@@ -25,7 +25,8 @@ import "reflect-metadata";
     providers: [
         UserService, 
         ClientService, 
-        ProductService
+        ProductService, 
+        AuthService
     ],
 })
 export class ApiModule {}
