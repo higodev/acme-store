@@ -4,7 +4,8 @@ import {
     Entity, 
     ManyToOne, 
     OneToMany, 
-    JoinColumn 
+    JoinColumn, 
+    BaseEntity
 } from "typeorm";
 import { User } from "./user.entity";
 import { Client } from "./client.entity";
@@ -13,7 +14,7 @@ import { SalePayment } from "./sale-payment.entity";
 import { ApiPropertyOptional, ApiProperty } from "@nestjs/swagger";
 
 @Entity({name: "sales"})
-export class Sale{
+export class Sale extends BaseEntity{
     
     @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
@@ -26,6 +27,9 @@ export class Sale{
     @ManyToOne(type => Client, client => client.sales)
     @JoinColumn({name: "client_id"})
     client: Client;
+
+    @Column({name: "total_pedido", default: 0})
+    totalPedido: number;
 
     @ManyToOne(type => User, user => user.sales)
     @JoinColumn({name: "user_id"})

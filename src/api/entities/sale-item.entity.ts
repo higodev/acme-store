@@ -4,14 +4,15 @@ import {
     Entity, 
     ManyToOne, 
     JoinColumn, 
-    Double
+    Double,
+    BaseEntity
 } from "typeorm";
 import { Product } from "./product.entity";
 import { Sale } from "./sale.entity";
 import { ApiPropertyOptional, ApiProperty } from "@nestjs/swagger";
 
 @Entity({name: "sales_items"})
-export class SaleItem{
+export class SaleItem extends BaseEntity{
     
     @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
