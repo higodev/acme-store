@@ -32,10 +32,7 @@ export class SaleService {
     }
     
     async delete(user, saleId: number){
-        let product = await this.repository.findOne(saleId);
-        if(product.id == saleId && product.user == user){
-            this.repository.delete({id: saleId})
-        }
+        this.repository.delete({id: saleId, user: user});
     }
 
 }

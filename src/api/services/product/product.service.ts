@@ -31,10 +31,7 @@ export class ProductService {
     }
     
     async delete(user, productId: number){
-        let product = await this.repository.findOne(productId);
-        if(product.id == productId && product.user == user){
-            this.repository.delete({id: productId})
-        }
+        this.repository.delete({id: productId, user: user});
     }
 
 }

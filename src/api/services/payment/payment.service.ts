@@ -31,10 +31,7 @@ export class PaymentService {
     }
     
     async delete(user, paymentId: number){
-        let product = await this.repository.findOne(paymentId);
-        if(product.id == paymentId && product.user == user){
-            this.repository.delete({id: paymentId})
-        }
+        this.repository.delete({id: paymentId, user: user})
     }
 
 }

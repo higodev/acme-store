@@ -16,6 +16,12 @@ import { PaymentController } from './controllers/payment/payment.controller';
 import { SaleController } from './controllers/sale/sale.controller';
 import { SaleService } from './services/sale/sale.service';
 import { PaymentService } from './services/payment/payment.service';
+import { SaleItemService } from './services/sale-item/sale-item.service';
+import { SalePaymentService } from './services/sale-payment/sale-payment.service';
+import { SaleItemController } from './controllers/sale-item/sale-item.controller';
+import { SalePaymentController } from './controllers/sale-payment/sale-payment.controller';
+import { SaleItem } from './entities/sale-item.entity';
+import { SalePayment } from './entities/sale-payment.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
@@ -23,14 +29,18 @@ import { PaymentService } from './services/payment/payment.service';
         Client, 
         Product,
         Payment,
-        Sale
+        Sale,
+        SaleItem,
+        SalePayment
     ])],
     controllers: [
         UserController,
         ClientController, 
         ProductController,
         PaymentController,
-        SaleController
+        SaleController,
+        SaleItemController,
+        SalePaymentController
     ],
     providers: [
         UserService, 
@@ -38,6 +48,8 @@ import { PaymentService } from './services/payment/payment.service';
         ProductService, 
         PaymentService,
         SaleService,
+        SaleItemService,
+        SalePaymentService,
         AuthService
     ],
 })

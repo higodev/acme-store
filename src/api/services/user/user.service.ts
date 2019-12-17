@@ -5,9 +5,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-
-    private saltRounds = 10;
-
+    
     constructor(@InjectRepository(User) private readonly repository: Repository<User>){}
     
     async findById(id: number): Promise<User>{
@@ -29,9 +27,7 @@ export class UserService {
     }
     
     async delete(id: number){
-        if(this.repository.findOne(id) != null){
-            this.repository.delete({id})
-        }
+        this.repository.delete({id})
     }
 
 }
