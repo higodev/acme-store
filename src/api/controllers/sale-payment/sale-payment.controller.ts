@@ -29,10 +29,10 @@ export class SalePaymentController {
         }
     }
 
-    @Get(':itemId')
-    async findById(@Param('idSale') sale, @Param('itemId') itemId){
+    @Get(':paymentId')
+    async findById(@Param('idSale') sale, @Param('paymentId') paymentId){
         try{
-            return this.service.findById(sale, itemId);
+            return this.service.findById(sale, paymentId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
@@ -47,19 +47,19 @@ export class SalePaymentController {
         }
     }
 
-    @Put(':itemId')
-    async update(@Param('idSale') sale, @Param('itemId') itemId, @Body() salePayment: SalePayment){
+    @Put(':paymentId')
+    async update(@Param('idSale') sale, @Param('paymentId') paymentId, @Body() salePayment: SalePayment){
         try{
-            return this.service.update(sale, salePayment, itemId);
+            return this.service.update(sale, salePayment, paymentId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
 
-    @Delete(':itemId')
-    async delete(@Param('idSale') sale, @Param('itemId') itemId){
+    @Delete(':paymentId')
+    async delete(@Param('idSale') sale, @Param('paymentId') paymentId){
         try{
-            this.service.delete(sale, itemId);
+            this.service.delete(sale, paymentId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
