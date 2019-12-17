@@ -28,9 +28,8 @@ export class ClientController{
     }
 
     @Get(':clientId')
-    async findById(@Param('id') user, @Param('idClient') clientId){
+    async findById(@Param('id') user, @Param('clientId') clientId){
         try{
-            console.log(user);
             return this.service.findById(user, clientId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;

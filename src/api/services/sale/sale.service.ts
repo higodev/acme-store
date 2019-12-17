@@ -9,10 +9,7 @@ export class SaleService {
     constructor(@InjectRepository(Sale) private readonly repository: Repository<Sale>){}
 
     async findById(user, saleId: number): Promise<Sale>{
-        let payment = await this.repository.findOne(saleId);
-        if(payment.user == user){
-            return payment;
-        }
+        return await this.repository.findOne({id: saleId, user: user});
     }
 
     async findAll(user): Promise<Sale[]>{

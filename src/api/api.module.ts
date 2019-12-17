@@ -10,22 +10,34 @@ import { Product } from './entities/product.entity';
 import { ProductController } from './controllers/product/product.controller';
 import { ProductService } from './services/product/product.service';
 import { AuthService } from './auth/auth.service';
+import { Sale } from './entities/sale.entity';
+import { Payment } from './entities/payment.entity';
+import { PaymentController } from './controllers/payment/payment.controller';
+import { SaleController } from './controllers/sale/sale.controller';
+import { SaleService } from './services/sale/sale.service';
+import { PaymentService } from './services/payment/payment.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([
         User, 
         Client, 
-        Product
+        Product,
+        Payment,
+        Sale
     ])],
     controllers: [
         UserController,
         ClientController, 
-        ProductController
+        ProductController,
+        PaymentController,
+        SaleController
     ],
     providers: [
         UserService, 
         ClientService, 
         ProductService, 
+        PaymentService,
+        SaleService,
         AuthService
     ],
 })

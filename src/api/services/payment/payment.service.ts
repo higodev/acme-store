@@ -9,18 +9,13 @@ export class PaymentService {
     constructor(@InjectRepository(Payment) private readonly repository: Repository<Payment>){}
 
     async findById(user, paymentId: number): Promise<Payment>{
-        let payment = await this.repository.findOne(paymentId);
-        return payment;
-        // if(payment.user == user){
-        //     return payment;
-        // }
+        return await this.repository.findOne({ id: paymentId, user: user});
     }
 
     async findAll(user): Promise<Payment[]>{
-        let products = await this.repository.find({
+        return await this.repository.find({
             where: [{user: user}]
         });
-        return products;
     }
 
     async save(user, payment: Payment): Promise<Payment>{

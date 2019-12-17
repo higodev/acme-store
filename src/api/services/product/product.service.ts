@@ -1,4 +1,4 @@
-    import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/api/entities/product.entity';
 import { Repository } from 'typeorm';
@@ -9,18 +9,13 @@ export class ProductService {
     constructor(@InjectRepository(Product) private readonly repository: Repository<Product>){}
 
     async findById(user, productId: number): Promise<Product>{
-        return await this.repository.findOne(productId);
-        // let product = await this.repository.findOne(productId);
-        // if(product.user == user){
-        //     return product;
-        // }
+        return await this.repository.findOne({id: productId, user: user});
     }
 
     async findAll(user): Promise<Product[]>{
-        let products = await this.repository.find({
+        return await this.repository.find({
             where: [{user: user}]
         });
-        return products;
     }
 
     async save(user, product: Product): Promise<Product>{

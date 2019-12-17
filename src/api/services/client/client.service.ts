@@ -8,19 +8,14 @@ export class ClientService {
 
     constructor(@InjectRepository(Client) private readonly repository: Repository<Client>){}
 
-    async findById(user:number, clientId: number): Promise<Client>{
-        return await this.repository.findOne(clientId);
-        // let client = await this.repository.findOne(clientId);
-        // if(user === client.user.id){
-        //     return client;
-        // }
+    async findById(user, clientId:number): Promise<Client>{
+        return await this.repository.findOne({id: clientId, user: user}); 
     }
 
     async findAll(user): Promise<Client[]>{
-        let clients = await this.repository.find({
+        return await this.repository.find({
             where: [{user: user}]
         });
-        return clients;
     }
 
     async save(user, client: Client): Promise<Client>{
