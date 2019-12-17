@@ -10,58 +10,57 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SaleItemService } from 'src/api/services/sale-item/sale-item.service';
+import { SaleItem } from 'src/api/entities/sale-item.entity';
 
 @ApiTags('sale-item')
 @Controller('api/v1/user/:id/sale/:idSale/sale-item')
 export class SaleItemController {
 
-
     constructor(private readonly service: SaleItemService){}
 
     @Get('')
-    async findAll(@Param('id') user){
+    async findAll(@Param('idSale') sale){
         try{
-            return this.service.findAll(user);
+            return this.service.findAll(sale);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
 
-    @Get(':saleId')
-    async findById(@Param('id') user, @Param('saleId') saleId){
+    @Get(':itemId')
+    async findById(@Param('idSale') sale, @Param('itemId') itemId){
         try{
-            return this.service.findById(user, saleId);
+            return this.service.findById(sale, itemId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
 
     @Post('')
-    async save(@Param('id') user, @Body() sale: Sale){
+    async save(@Param('idSale') sale, @Body() saleItem: SaleItem){
         try{
-            return this.service.save(user, sale);
+            return this.service.save(sale, saleItem);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
 
-    @Put(':saleId')
-    async update(@Param('id') user, @Param('saleId') saleId, @Body() sale: Sale){
+    @Put(':itemId')
+    async update(@Param('idSale') sale, @Param('itemId') itemId, @Body() saleItem: SaleItem){
         try{
-            return this.service.update(user, sale, saleId);
+            return this.service.update(sale, saleItem, itemId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
 
-    @Delete(':saleId')
-    async delete(@Param('id') user, @Param('saleId') saleId){
+    @Delete(':itemId')
+    async delete(@Param('idSale') sale, @Param('itemId') itemId){
         try{
-            this.service.delete(user, saleId);
+            this.service.delete(sale, itemId);
         }catch(err){
             return HttpStatus.BAD_REQUEST;
         }
     }
-
 
 }
