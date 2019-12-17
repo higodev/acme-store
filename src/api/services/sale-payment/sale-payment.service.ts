@@ -9,19 +9,16 @@ export class SalePaymentService {
     
     constructor(@InjectRepository(SalePayment) private readonly repository: Repository<SalePayment>){}
 
-    calculaTotal(salePayment: SalePayment){
-
-        let payment = salePayment.payment;
-        let desc = payment.desconto;
-        let tot = 0;
-
-        if(desc > 0){
-            tot = salePayment.valor - ((salePayment.valor * 5)/100);
+    getPayment(paymentId):Promise<Payment>{
+        return Payment.findOne({ id: paymentId });
+    }
+    
+    getCalcTotal(valuePay, valueDescPerc){
+        if(valueDescPerc > 0){
+            return valuePay - ((valuePay * valueDescPerc)/100);
         }else{
-            tot = salePayment.valor; 
+            return valuePay; 
         }
-
-        return tot;
     }
 
     async findById(sale, paymentId: number): Promise<SalePayment>{
@@ -34,10 +31,12 @@ export class SalePaymentService {
         });
     }
 
-    async save(sale, pay: SalePayment): Promise<SalePayment>{
-        pay.sale = sale;
-        pay.valor = this.calculaTotal(pay);
-        return await this.repository.save(pay);
+    async save(sale, salePayment: SalePayment): Promise<SalePayment>{
+        let paymentSale = await this.getPayment(salePayment.payment);
+        let valueCalc = await this.getCalcTotal(salePayment.valor, paymentSale.descontoPercentual);
+        salePayment.sale = sale;
+        salePayment.valor = valueCalc;
+        return await this.repository.save(salePayment);
     }
     
     async update(sale, payment: SalePayment, itemId: number): Promise<SalePayment>{

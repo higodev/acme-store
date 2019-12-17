@@ -17,7 +17,7 @@ export class SalePayment{
     id: number;
 
     @ApiProperty()
-    @Column()
+    @Column("decimal", { precision: 5, scale: 2, default: 0})
     valor: number;
 
     @ManyToOne(type => Sale, sale => sale.payments)

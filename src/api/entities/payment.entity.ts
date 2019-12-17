@@ -4,14 +4,15 @@ import {
     Column, 
     OneToMany, 
     ManyToOne, 
-    JoinColumn 
+    JoinColumn, 
+    BaseEntity
 } from "typeorm";
 import { SalePayment } from "./sale-payment.entity";
 import { User } from "./user.entity";
 import { ApiPropertyOptional, ApiProperty } from "@nestjs/swagger";
 
 @Entity({name: "payments"})
-export class Payment{
+export class Payment extends BaseEntity{
 
     @ApiPropertyOptional()
     @PrimaryGeneratedColumn()
@@ -22,8 +23,8 @@ export class Payment{
     nome: string;
 
     @ApiProperty()
-    @Column({default: 0})
-    desconto: number
+    @Column("decimal", { precision: 5, scale: 2, default: 0, name: "desconto_percentual"})
+    descontoPercentual: number;
     
     @ManyToOne(type => User, user => user.payments)
     @JoinColumn({name: "user_id"})
