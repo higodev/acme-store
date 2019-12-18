@@ -2,19 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Sale } from 'src/api/entities/sale.entity';
 import { Repository } from 'typeorm';
-import { SaleItem } from 'src/api/entities/sale-item.entity';
 
 @Injectable()
 export class SaleService {
 
     constructor(@InjectRepository(Sale) private readonly repository: Repository<Sale>){}
-
-    async calculateTotal(idSale){
-        let saleItems: SaleItem[] = await SaleItem.find({ id: idSale });
-        return saleItems.reduce(function (accumulator, item){
-            return accumulator + (item.preco * item.quantidade);
-        }, 0);
-    }
 
     async findById(user, saleId: number): Promise<Sale>{
         return await this.repository.findOne({id: saleId, user: user});

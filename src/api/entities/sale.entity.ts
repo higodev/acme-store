@@ -28,8 +28,11 @@ export class Sale extends BaseEntity{
     @JoinColumn({name: "client_id"})
     client: Client;
 
-    @Column({name: "total_pedido", default: 0})
-    totalPedido: number;
+    @Column("decimal", { precision: 5, scale: 2, default: 0, name: "total_pedido"})
+    totalSale: number;
+
+    @Column({length: 50})
+    status: string;
 
     @ManyToOne(type => User, user => user.sales)
     @JoinColumn({name: "user_id"})

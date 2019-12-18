@@ -26,6 +26,9 @@ export class SaleItem extends BaseEntity{
     @Column("decimal", { precision: 5, scale: 2, default: 0})
     preco: number;
     
+    @Column("decimal", { precision: 5, scale: 2, default: 0, name: "total_item"})
+    totalItem: number;
+
     @ManyToOne(type => Sale, sale => sale.items)
     @JoinColumn({name: "sale_id"})
     sale: Sale;
@@ -33,5 +36,6 @@ export class SaleItem extends BaseEntity{
     @ManyToOne(type => Product, product => product.saleItems)
     @JoinColumn({name: "product_id"})
     product: Product;
+    static filter: any;
 
 }
