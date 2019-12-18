@@ -38,7 +38,6 @@ export class SalePaymentService {
         this.updateStatusSale(sale, salePayment.valor);
         salePayment.sale = sale;
         salePayment.valor = valueCalc;
-        salePayment.valor = valueCalc;
         return await this.repository.save(salePayment);
     }
 
