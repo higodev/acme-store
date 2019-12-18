@@ -19,38 +19,38 @@ export class ClientController{
     constructor(private readonly service: ClientService){}
     
     @Get('')
-    async findAll(@Param('id') user){
+    async findAll(@Param('id') user):Promise<Client[]>{
         try{
             return this.service.findAll(user);
         }catch(err){
-            return HttpStatus.BAD_REQUEST;
+            throw new Response(err);
         }
     }
 
     @Get(':clientId')
-    async findById(@Param('id') user, @Param('clientId') clientId){
+    async findById(@Param('id') user, @Param('clientId') clientId):Promise<Client>{
         try{
             return this.service.findById(user, clientId);
         }catch(err){
-            return HttpStatus.BAD_REQUEST;
+            throw new Response(err);
         }
     }
 
     @Post('')
-    async save(@Param('id') user, @Body() client: Client){
+    async save(@Param('id') user, @Body() client: Client):Promise<Client>{
         try{
             return this.service.save(user, client);
         }catch(err){
-            return HttpStatus.BAD_REQUEST;
+            throw new Response(err);
         }
     }
 
     @Put(':clientId')
-    async update(@Param('id') user, @Param('clientId') clientId, @Body() client: Client){
+    async update(@Param('id') user, @Param('clientId') clientId, @Body() client: Client):Promise<Client>{
         try{
             return this.service.update(user, client, clientId);
         }catch(err){
-            return HttpStatus.BAD_REQUEST;
+            throw new Response(err);
         }
     }
 

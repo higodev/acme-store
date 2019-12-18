@@ -31,7 +31,10 @@ export class Sale extends BaseEntity{
     @Column("decimal", { precision: 5, scale: 2, default: 0, name: "total_pedido"})
     totalSale: number;
 
-    @Column({length: 50})
+    @Column("decimal", { precision: 5, scale: 2, default: 0, name: "desconto"})
+    desconto: number;
+
+    @Column({default:"EM ABERTO", length: 50, nullable: true})
     status: string;
 
     @ManyToOne(type => User, user => user.sales)

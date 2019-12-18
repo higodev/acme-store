@@ -9,8 +9,6 @@ import {
     HttpStatus
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { SaleItemService } from 'src/api/services/sale-item/sale-item.service';
-import { SaleItem } from 'src/api/entities/sale-item.entity';
 import { SalePaymentService } from 'src/api/services/sale-payment/sale-payment.service';
 import { SalePayment } from 'src/api/entities/sale-payment.entity';
 

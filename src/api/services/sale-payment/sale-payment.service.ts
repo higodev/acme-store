@@ -35,7 +35,7 @@ export class SalePaymentService {
     async save(sale, salePayment: SalePayment): Promise<SalePayment>{
         let paymentSale = await this.getPayment(salePayment.payment);
         let valueCalc = await this.getCalcTotal(salePayment.valor, paymentSale.descontoPercentual);
-        this.updateStatusSale(sale, salePayment.valor);
+        this.updateStatusSale(sale, salePayment.valor, salePayment.valor-valueCalc);
         salePayment.sale = sale;
         salePayment.valor = valueCalc;
         return await this.repository.save(salePayment);
@@ -47,14 +47,14 @@ export class SalePaymentService {
         return total.reduce((a, b)=> a + b, 0);
     }
 
-    async updateStatusSale(saleId, valuePaid){
+    async updateStatusSale(saleId, valorPago, valorDesconto){
 
         let sale = await Sale.findOne({id: saleId});
         let totalSale = sale.totalSale;
         let totalPayments = await this.getTotalPayments(saleId);
 
         let strStatus = "";
-        let valorComparar = totalPayments + valuePaid;
+        let valorComparar = totalPayments + valorPago;
 
         if(Number(totalSale) == Number(valorComparar)){
             strStatus = "PAGO";
@@ -64,6 +64,10 @@ export class SalePaymentService {
             strStatus = "PAGO MAIS";
         }else{
             strStatus = "PAGO PARCIAL";
+        }
+        
+        if(strStatus == "PAGO" && Number(valorDesconto)>0){
+            sale.desconto = valorDesconto;
         }
         
         sale.status = strStatus
